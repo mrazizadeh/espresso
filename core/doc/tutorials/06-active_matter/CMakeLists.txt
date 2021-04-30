@@ -1,0 +1,15 @@
+file(COPY "EXERCISES" DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+file(COPY "SOLUTIONS" DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+
+get_filename_component(BASENAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+
+add_custom_command( 
+  OUTPUT ${BASENAME}.pdf
+  COMMAND sh ../../latexit.sh
+          ${CMAKE_CURRENT_SOURCE_DIR}
+          ${BASENAME}
+  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${BASENAME}.tex
+          ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+add_custom_target(tutorials_06 DEPENDS ${BASENAME}.pdf)
